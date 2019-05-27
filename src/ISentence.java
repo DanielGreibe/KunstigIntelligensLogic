@@ -1,2 +1,5 @@
-public interface ISentence {
+public interface ISentence
+{
+    public String toString();
+
 }
