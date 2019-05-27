@@ -23,6 +23,7 @@ public class BeliefBase
 
     public void addSentence(ISentence sentence)
     {
+        sentence.convertToCNF();
         Sentences.add(sentence);
     }
     public void removeSentence(int index)
@@ -33,4 +34,6 @@ public class BeliefBase
     {
         Sentences.remove(sentence);
     }
+
+
 }

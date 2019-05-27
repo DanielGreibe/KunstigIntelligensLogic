@@ -2,6 +2,7 @@ public class Main {
 
     public static void main(String[] args)
     {
+        /*
         ISentence sentence1 = new Expression(new Expression(new Variable("A", false), Operator.OR, new Variable("B", false), false), Operator.AND, new Variable("C", false), true);
 
         ISentence sentence2 = new Expression(new Variable("C", false), Operator.OR, new Variable("D", false), true);
@@ -39,6 +40,17 @@ public class Main {
 
 
         System.out.println(beliefBase);
+        */
+
+        BeliefBase beliefBase = new BeliefBase();
+        ISentence sentence1 = new Expression(new Variable("A", false), Operator.DOUBLEIMPLICATION, new Variable("B", false),false);
+
+        System.out.println(sentence1);
+        sentence1.convertToCNF();
+
+        System.out.println();
+        System.out.println(sentence1);
+
 
     }
 }
