@@ -10,13 +10,35 @@ public class Main {
 
         ISentence sentence4 = new Expression(new Variable("G", true), Operator.DOUBLEIMPLICATION, new Variable("H", false), true);
 
+        System.out.println("Printint out sentence 1");
         System.out.println(sentence1);
 
+        System.out.println("Printint out sentence 2");
         System.out.println(sentence2);
 
+        System.out.println("Printint out sentence 3");
         System.out.println(sentence3);
 
+        System.out.println("Printint out sentence 4");
         System.out.println(sentence4);
+
+
+        BeliefBase beliefBase = new BeliefBase();
+        beliefBase.addSentence(sentence1);
+        beliefBase.addSentence(sentence2);
+        beliefBase.addSentence(sentence3);
+        beliefBase.addSentence(sentence4);
+
+        System.out.println("Printint out the belief base consisting of sentence 1 to 4");
+        System.out.println(beliefBase);
+
+
+        beliefBase.removeSentence(0);
+
+        beliefBase.removeSentence(sentence1);
+
+
+        System.out.println(beliefBase);
 
     }
 }
