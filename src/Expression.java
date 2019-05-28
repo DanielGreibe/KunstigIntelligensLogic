@@ -60,8 +60,18 @@ public class Expression implements ISentence
         return this;
     }
 
-    private Expression ConvertNotExpression ()
-    {
+    private Expression ConvertNotExpression (){
+        if(negated){
+            Negate();
+            sentence1.Negate();
+            sentence2.Negate();
+
+            if(operator == Operator.OR){
+                this.operator = Operator.AND;
+            } else{
+                this.operator = Operator.OR;
+            }
+        }
         return this;
     }
 
