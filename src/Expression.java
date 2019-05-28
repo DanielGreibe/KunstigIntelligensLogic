@@ -30,6 +30,7 @@ public class Expression implements ISentence
         Expression CopyExpression = new Expression(this.getSentence1(), this.getOperator(), this.getSentence2(), this.getNegated());
         CopyExpression = ConvertBiimplication(CopyExpression);
         CopyExpression = ConvertImplication(CopyExpression);
+        CopyExpression = ConvertNotExpression();
         CopyExpression.sentence1 = CopyExpression.sentence1.convertToCNF();
         CopyExpression.sentence2 = CopyExpression.sentence2.convertToCNF();
 

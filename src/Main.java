@@ -43,15 +43,15 @@ public class Main {
         */
 
         BeliefBase beliefBase = new BeliefBase();
-        Expression AB = new Expression(new Variable("A", false), Operator.IMPLICATION, new Variable("B", false), false);
-        Expression CD = new Expression(new Variable("C", false), Operator.IMPLICATION, new Variable("D", false), false);
-        ISentence TestSentence = new Expression(AB, Operator.AND, CD, false);
+        Expression AB = new Expression(new Variable("A", false), Operator.DOUBLEIMPLICATION, new Variable("B", false), false);
+        Expression CD = new Expression(AB, Operator.IMPLICATION, new Variable("C", false), false);
+        //ISentence TestSentence = new Expression(AB, Operator.AND, CD, false);
 
-       System.out.println(TestSentence);
-        TestSentence.convertToCNF();
+       System.out.println(CD);
+        CD.convertToCNF();
 
         //System.out.println();
-        System.out.println(TestSentence);
+        System.out.println(CD);
 
 
     }
