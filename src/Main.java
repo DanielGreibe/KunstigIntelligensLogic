@@ -43,7 +43,9 @@ public class Main {
         */
 
         BeliefBase beliefBase = new BeliefBase();
-        ISentence TestSentence = new Expression(new Variable("A", false), Operator.DOUBLEIMPLICATION, new Variable("B", false),false);
+        Expression AB = new Expression(new Variable("A", false), Operator.IMPLICATION, new Variable("B", false), false);
+        Expression CD = new Expression(new Variable("C", false), Operator.IMPLICATION, new Variable("D", false), false);
+        ISentence TestSentence = new Expression(AB, Operator.AND, CD, false);
 
        System.out.println(TestSentence);
         TestSentence.convertToCNF();

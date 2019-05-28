@@ -12,11 +12,6 @@ public class Expression implements ISentence
         this.negated = negated;
     }
 
-    public Expression( Expression expression)
-    {
-        this(expression.getSentence1(), expression.getOperator(), expression.getSentence2(), expression.getNegated());
-    }
-
     @Override
     public String toString() {
         if (negated)
@@ -32,35 +27,32 @@ public class Expression implements ISentence
     @Override
     public Expression convertToCNF()
     {
-        ConvertBiimplication();
-        ConvertImplication();
-        ConvertNotExpression();
-        ConvertDoubleNot();
-        sentence1.convertToCNF();
-        sentence2.convertToCNF();
-        return this;
+        Expression CopyExpression = new Expression(this.getSentence1(), this.getOperator(), this.getSentence2(), this.getNegated());
+        CopyExpression = ConvertBiimplication(CopyExpression);
+        CopyExpression = ConvertImplication(CopyExpression);
+        CopyExpression.sentence1 = CopyExpression.sentence1.convertToCNF();
+        CopyExpression.sentence2 = CopyExpression.sentence2.convertToCNF();
+
+        return CopyExpression;
 
     }
 
-    private Expression ConvertBiimplication ()
+    private Expression ConvertBiimplication (Expression expression)
     {
-        if (operator == Operator.DOUBLEIMPLICATION)
+        if (expression.getOperator() == Operator.DOUBLEIMPLICATION)
         {
-            Expression NewSentence1 = new Expression(this);//new Expression(sentence1, Operator.IMPLICATION, sentence2, negated);
-            Expression NewSentence2 = new Expression(this);//new Expression(sentence2, Operator.IMPLICATION, sentence1, negated);
-
-
-            sentence1 = NewSentence1;
-            operator = Operator.AND;
-            sentence2 = NewSentence2;
+            expression.sentence1 = new Expression(expression.getSentence1(), Operator.IMPLICATION, expression.getSentence2(), expression.getNegated());
+            expression.sentence2 = new Expression(expression.getSentence2(), Operator.IMPLICATION, expression.getSentence1(), expression.getNegated());
+            expression.operator = Operator.AND;
         }
         return this;
     }
 
-    private Expression ConvertImplication ()
+    private Expression ConvertImplication (Expression expression)
     {
         if(operator == Operator.IMPLICATION)
         {
+            Expression CopyExpression = new Expression(expression.getSentence1(), expression.getOperator(), expression.getSentence2(), expression.getNegated());
             sentence1.Negate();
             operator = Operator.OR;
 
