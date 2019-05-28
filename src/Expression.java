@@ -39,15 +39,16 @@ public class Expression implements ISentence
         sentence1.convertToCNF();
         sentence2.convertToCNF();
         return this;
-
     }
 
     private Expression ConvertBiimplication ()
     {
         if (operator == Operator.DOUBLEIMPLICATION)
         {
-            Expression NewSentence1 = new Expression(this);//new Expression(sentence1, Operator.IMPLICATION, sentence2, negated);
-            Expression NewSentence2 = new Expression(this);//new Expression(sentence2, Operator.IMPLICATION, sentence1, negated);
+
+            Expression NewSentence1 = new Expression(sentence1, Operator.IMPLICATION, sentence2, negated);//new Expression(sentence1, Operator.IMPLICATION, sentence2, negated);
+            Expression NewSentence2 = new Expression(sentence2, Operator.IMPLICATION, sentence1, negated);//new Expression(sentence2, Operator.IMPLICATION, sentence1, negated);
+
 
 
             sentence1 = NewSentence1;
@@ -68,8 +69,18 @@ public class Expression implements ISentence
         return this;
     }
 
-    private Expression ConvertNotExpression ()
-    {
+    private Expression ConvertNotExpression (){
+        if(negated){
+            Negate();
+            sentence1.Negate();
+            sentence2.Negate();
+
+            if(operator == Operator.OR){
+                this.operator = Operator.AND;
+            } else{
+                this.operator = Operator.OR;
+            }
+        }
         return this;
     }
 
