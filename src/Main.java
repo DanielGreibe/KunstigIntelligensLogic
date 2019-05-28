@@ -43,13 +43,13 @@ public class Main {
         */
 
         BeliefBase beliefBase = new BeliefBase();
-        ISentence sentence1 = new Expression(new Variable("A", false), Operator.DOUBLEIMPLICATION, new Variable("B", false),false);
+        ISentence TestSentence = new Expression(new Variable("A", false), Operator.DOUBLEIMPLICATION, new Variable("B", false),false);
 
-        System.out.println(sentence1);
-        sentence1.convertToCNF();
+        System.out.println(TestSentence);
+        TestSentence.convertToCNF();
 
         System.out.println();
-        System.out.println(sentence1);
+        System.out.println(TestSentence);
 
 
     }

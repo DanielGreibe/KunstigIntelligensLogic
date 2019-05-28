@@ -27,7 +27,14 @@ public class Expression implements ISentence
     @Override
     public Expression convertToCNF()
     {
-        return ConvertDoubleNot(ConvertNotExpression(ConvertImplication(ConvertBiimplication(this))));
+        this.ConvertBiimplication(this);
+        this.ConvertImplication(this);
+        this.ConvertNotExpression(this);
+        this.ConvertDoubleNot(this);
+        this.sentence1 = sentence1.convertToCNF();
+        this.sentence2 = sentence2.convertToCNF();
+        return this;
+
     }
 
     private Expression ConvertBiimplication (Expression sentence)
