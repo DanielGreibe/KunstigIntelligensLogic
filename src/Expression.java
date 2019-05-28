@@ -12,6 +12,11 @@ public class Expression implements ISentence
         this.negated = negated;
     }
 
+    public Expression( Expression expression)
+    {
+        this(expression.getSentence1(), expression.getOperator(), expression.getSentence2(), expression.getNegated());
+    }
+
     @Override
     public String toString() {
         if (negated)
@@ -27,50 +32,50 @@ public class Expression implements ISentence
     @Override
     public Expression convertToCNF()
     {
-        this.ConvertBiimplication(this);
-        this.ConvertImplication(this);
-        this.ConvertNotExpression(this);
-        this.ConvertDoubleNot(this);
-        this.sentence1 = sentence1.convertToCNF();
-        this.sentence2 = sentence2.convertToCNF();
+        ConvertBiimplication();
+        ConvertImplication();
+        ConvertNotExpression();
+        ConvertDoubleNot();
+        sentence1.convertToCNF();
+        sentence2.convertToCNF();
         return this;
 
     }
 
-    private Expression ConvertBiimplication (Expression sentence)
+    private Expression ConvertBiimplication ()
     {
-        if (sentence.operator == Operator.DOUBLEIMPLICATION)
+        if (operator == Operator.DOUBLEIMPLICATION)
         {
-            Expression NewSentence1 = new Expression(sentence.sentence1, Operator.IMPLICATION, sentence.sentence2, sentence.negated);
-            Expression NewSentence2 = new Expression(sentence.sentence2, Operator.IMPLICATION, sentence.sentence1, sentence.negated);
+            Expression NewSentence1 = new Expression(this);//new Expression(sentence1, Operator.IMPLICATION, sentence2, negated);
+            Expression NewSentence2 = new Expression(this);//new Expression(sentence2, Operator.IMPLICATION, sentence1, negated);
 
-            sentence.sentence1 = NewSentence1;
-            sentence.operator = Operator.AND;
-            sentence.sentence2 = NewSentence2;
+
+            sentence1 = NewSentence1;
+            operator = Operator.AND;
+            sentence2 = NewSentence2;
         }
-
-        return sentence;
+        return this;
     }
 
-    private Expression ConvertImplication (Expression sentence)
+    private Expression ConvertImplication ()
     {
-        if(sentence.operator == Operator.IMPLICATION)
+        if(operator == Operator.IMPLICATION)
         {
-            sentence.sentence1.Negate();
-            sentence.operator = Operator.OR;
+            sentence1.Negate();
+            operator = Operator.OR;
 
         }
-        return sentence;
+        return this;
     }
 
-    private Expression ConvertNotExpression (Expression sentence)
+    private Expression ConvertNotExpression ()
     {
-        return sentence;
+        return this;
     }
 
-    private Expression ConvertDoubleNot (Expression sentence)
+    private Expression ConvertDoubleNot ()
     {
-        return sentence;
+        return this;
     }
 
     @Override
@@ -85,5 +90,36 @@ public class Expression implements ISentence
             this.negated = true;
         }
         return this;
+    }
+
+    public ISentence getSentence1()
+    {
+        return sentence1;
+    }
+    public ISentence getSentence2() {
+        return sentence2;
+    }
+    public boolean getNegated()
+    {
+        return negated;
+    }
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setSentence1(ISentence sentence1) {
+        this.sentence1 = sentence1;
+    }
+
+    public void setSentence2(ISentence sentence2) {
+        this.sentence2 = sentence2;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
+
+    public void setNegated(boolean negated) {
+        this.negated = negated;
     }
 }
