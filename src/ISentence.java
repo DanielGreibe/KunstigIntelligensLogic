@@ -1,8 +1,11 @@
 public interface ISentence
 {
-    public String toString();
+    String toString();
 
-    public ISentence convertToCNF();
+    ISentence convertToCNF();
 
-    public ISentence Negate();
+    ISentence Negate();
+
+    boolean getNegated();
+
 }

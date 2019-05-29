@@ -1,9 +1,9 @@
 public class Variable implements ISentence {
-    String variable;
+    String name;
     boolean negated;
 
-    public Variable(String variable, boolean negated) {
-        this.variable = variable;
+    public Variable(String name, boolean negated) {
+        this.name = name;
         this.negated = negated;
     }
 
@@ -11,9 +11,9 @@ public class Variable implements ISentence {
     @Override
     public java.lang.String toString() {
         if (negated) {
-            return "NOT " + variable;
+            return "NOT " + name;
         } else {
-            return variable;
+            return name;
         }
     }
 
@@ -34,5 +34,14 @@ public class Variable implements ISentence {
         }
         return this;
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean getNegated() {
+        return negated;
     }
 }

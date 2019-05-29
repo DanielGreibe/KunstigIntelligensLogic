@@ -27,36 +27,36 @@ public class Expression implements ISentence
     @Override
     public Expression convertToCNF()
     {
-        Expression CopyExpression = new Expression(this.getSentence1(), this.getOperator(), this.getSentence2(), this.getNegated());
-        CopyExpression = ConvertBiimplication(CopyExpression);
-        CopyExpression = ConvertImplication(CopyExpression);
-        CopyExpression = ConvertNotExpression();
-        CopyExpression.sentence1 = CopyExpression.sentence1.convertToCNF();
-        CopyExpression.sentence2 = CopyExpression.sentence2.convertToCNF();
+        //ConvertBiimplication
+        ConvertImplication(this);
+        ConvertNotExpression();
+        sentence1.convertToCNF();
+        sentence2.convertToCNF();
 
-        return CopyExpression;
+        return this;
 
     }
 
     private Expression ConvertBiimplication (Expression expression)
     {
-        if (expression.getOperator() == Operator.DOUBLEIMPLICATION)
+        if (operator == Operator.DOUBLEIMPLICATION)
         {
-            expression.sentence1 = new Expression(expression.getSentence1(), Operator.IMPLICATION, expression.getSentence2(), expression.getNegated());
-            expression.sentence2 = new Expression(expression.getSentence2(), Operator.IMPLICATION, expression.getSentence1(), expression.getNegated());
-            expression.operator = Operator.AND;
+            //Change Sentence1 and Sentence2 so that
+            //Sentence 1 = Sentence1 AND Sentence2
+            //Sentence 2 = Sentence2 AND Sentence1
+
+            //We faced the problem that the left hand side in Sentence1 and right hand side in Sentence 2 is the same reference
+            //So when we changed either side, it changed both and not just the one of them.
         }
-        return this;
+        return expression;
     }
 
     private Expression ConvertImplication (Expression expression)
     {
         if(operator == Operator.IMPLICATION)
         {
-            Expression CopyExpression = new Expression(expression.getSentence1(), expression.getOperator(), expression.getSentence2(), expression.getNegated());
             sentence1.Negate();
             operator = Operator.OR;
-
         }
         return this;
     }
@@ -76,11 +76,6 @@ public class Expression implements ISentence
         return this;
     }
 
-    private Expression ConvertDoubleNot ()
-    {
-        return this;
-    }
-
     @Override
     public ISentence Negate()
     {
@@ -95,34 +90,20 @@ public class Expression implements ISentence
         return this;
     }
 
-    public ISentence getSentence1()
-    {
-        return sentence1;
-    }
     public ISentence getSentence2() {
         return sentence2;
     }
-    public boolean getNegated()
-    {
-        return negated;
+
+    public ISentence getSentence1() {
+        return sentence1;
     }
+
     public Operator getOperator() {
         return operator;
     }
 
-    public void setSentence1(ISentence sentence1) {
-        this.sentence1 = sentence1;
-    }
-
-    public void setSentence2(ISentence sentence2) {
-        this.sentence2 = sentence2;
-    }
-
-    public void setOperator(Operator operator) {
-        this.operator = operator;
-    }
-
-    public void setNegated(boolean negated) {
-        this.negated = negated;
+    @Override
+    public boolean getNegated() {
+        return negated;
     }
 }
