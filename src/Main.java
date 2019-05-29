@@ -13,6 +13,7 @@ public class Main {
         Expression ExpressionNine = new Expression(new Variable("A", true), Operator.OR, new Variable("A", false), false);
         Expression ExpressionTen = new Expression(new Variable("A", false), Operator.IMPLICATION, new Variable("B", false), false);
         Variable ExpressionElleven = new Variable("A", false);
+        Variable ExpressionTwelve = new Variable("A", true);
 
 
         /*System.out.println("Expression One:  " + ExpressionOne);
@@ -88,16 +89,21 @@ public class Main {
         beliefBase.addSentence(ExpressionTen);
         beliefBase.addSentence(ExpressionElleven);*/
 
-       beliefBase.addSentence(ExpressionTwo);
+       beliefBase.addSentence(ExpressionElleven);
+       beliefBase.addSentence(ExpressionTwelve);
 
        // System.out.println(beliefBase);
-        System.out.println(ExpressionTwo);
-        beliefBase.generateVariables(ExpressionTwo);
+        System.out.println(ExpressionElleven);
+        System.out.println(ExpressionTwelve);
+        beliefBase.generateVariables(ExpressionElleven);
+        beliefBase.generateVariables(ExpressionTwelve);
         beliefBase.FillVariablesList();
         beliefBase.generateExpressionTruthTable();
         System.out.println(beliefBase.getVariables());
         System.out.println(beliefBase.getVariableTruthTable());
         System.out.println(beliefBase.getExpressionTruthTable());
+
+        System.out.println("Is the BeliefBase Consistent:  " + beliefBase.isConsistent());
 
     }
 }

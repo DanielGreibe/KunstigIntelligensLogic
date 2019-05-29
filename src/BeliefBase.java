@@ -153,6 +153,29 @@ public class BeliefBase
         }
     }
 
+    public boolean isConsistent(){
+        int Kolonne = 0;
+        int Række = 0;
+        int counter = 0;
+
+        for(Række = 0; Række < ExpressionTruthTable.get(Kolonne).size(); Række++){
+            Kolonne = 0;
+            counter = 0;
+            for(Kolonne = 0; Kolonne < ExpressionTruthTable.size(); Kolonne++){
+                if (ExpressionTruthTable.get(Kolonne).get(Række)) {
+                    counter++;
+                    if (counter == ExpressionTruthTable.size()) {
+                        return true;
+                    }
+                }
+                if (Kolonne == ExpressionTruthTable.size()-1){
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
     public void CheckLogicalEntailment(ISentence sentence)
     {
         //Check if the Belief Base entails the new sentence.
